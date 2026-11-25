@@ -2,9 +2,9 @@
 
 # Legs
 
-Browse all 761 items across 1 pages.
+761 items in 1 pages.
 
-The complete metadata is available in the [JSON export](../../../data/persona-pieces.json).
+[JSON data](../../../data/persona-pieces.json).
 
 | Page | Items | Catalog |
 | ---: | ---: | --- |

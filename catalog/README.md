@@ -2,9 +2,7 @@
 
 # Visual Catalog
 
-Browse thumbnails for the complete emote export and separate catalogs for every confirmed persona piece type. Each catalog is split into small pages so GitHub can render the full list. The JSON files remain the complete machine-readable catalog.
+Browse the complete thumbnail lists. Each list is split into pages for reliable GitHub rendering.
 
 - [Persona emotes](persona-emotes/README.md).
 - [Persona pieces](persona-pieces/README.md).
-
-Thumbnails use the HTTPS image URLs supplied in the catalog records.

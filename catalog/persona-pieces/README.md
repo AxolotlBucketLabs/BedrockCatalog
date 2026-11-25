@@ -2,7 +2,7 @@
 
 # Persona Pieces
 
-Choose a type to browse all 37,627 exported persona pieces.
+19 confirmed types with 37,627 items.
 
 | Type | Items | Catalog |
 | --- | ---: | --- |

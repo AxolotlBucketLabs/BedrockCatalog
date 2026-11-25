@@ -2,9 +2,9 @@
 
 # Head
 
-Browse all 8,282 items across 6 pages.
+8,282 items in 6 pages.
 
-The complete metadata is available in the [JSON export](../../../data/persona-pieces.json).
+[JSON data](../../../data/persona-pieces.json).
 
 | Page | Items | Catalog |
 | ---: | ---: | --- |

@@ -145,11 +145,11 @@ def render_page(
     lines = [
         GENERATED_MARKER,
         "",
-        f"# {title}",
+        f"# {title} (Page {page_number} of {page_count})",
         "",
-        f"Page {page_number} of {page_count}. {item_label} {first_item_number:,} to {last_item_number:,} of {item_count:,}.",
+        f"{item_label} {first_item_number:,} to {last_item_number:,} of {item_count:,}.",
         "",
-        f"The complete metadata is available in the [JSON export]({json_link}).",
+        f"[JSON data]({json_link}).",
         "",
         *TABLE_HEADER,
     ]
@@ -188,11 +188,11 @@ def render_item_catalog(
         "",
         f"# {title}",
         "",
-        f"Browse all {len(items):,} items across {len(chunks)} pages."
+        f"{len(items):,} items in {len(chunks)} pages."
         if items
-        else "No items are currently exported for this type.",
+        else "No items are currently exported.",
         "",
-        f"The complete metadata is available in the [JSON export]({json_link}).",
+        f"[JSON data]({json_link}).",
         "",
         "| Page | Items | Catalog |",
         "| ---: | ---: | --- |",
@@ -230,12 +230,10 @@ def render_catalog(data_dir: Path, config_path: Path) -> dict[Path, str]:
                 "",
                 "# Visual Catalog",
                 "",
-                "Browse thumbnails for the complete emote export and separate catalogs for every confirmed persona piece type. Each catalog is split into small pages so GitHub can render the full list. The JSON files remain the complete machine-readable catalog.",
+                "Browse the complete thumbnail lists. Each list is split into pages for reliable GitHub rendering.",
                 "",
                 "- [Persona emotes](persona-emotes/README.md).",
                 "- [Persona pieces](persona-pieces/README.md).",
-                "",
-                "Thumbnails use the HTTPS image URLs supplied in the catalog records.",
                 "",
             )
         ),
@@ -256,7 +254,7 @@ def render_catalog(data_dir: Path, config_path: Path) -> dict[Path, str]:
         "",
         "# Persona Pieces",
         "",
-        f"Choose a type to browse all {len(pieces):,} exported persona pieces.",
+        f"{len(confirmed_types)} confirmed types with {len(pieces):,} items.",
         "",
         "| Type | Items | Catalog |",
         "| --- | ---: | --- |",

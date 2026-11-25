@@ -2,9 +2,9 @@
 
 # Persona Emotes
 
-Browse all 2,173 items across 2 pages.
+2,173 items in 2 pages.
 
-The complete metadata is available in the [JSON export](../../data/persona-emotes.json).
+[JSON data](../../data/persona-emotes.json).
 
 | Page | Items | Catalog |
 | ---: | ---: | --- |
