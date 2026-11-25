@@ -56,7 +56,7 @@ jobs:
           done
 
       - name: Generate visual catalog
-        run: python scripts/render_catalog_readme.py --data-dir .catalog-update --output catalog/README.md
+        run: python scripts/render_catalog_readme.py --data-dir .catalog-update --output-dir catalog
 
       - name: Commit and push changed catalog data
         id: push
@@ -64,7 +64,7 @@ jobs:
           set -euo pipefail
           install -m 0644 .catalog-update/persona-emotes.json data/persona-emotes.json
           install -m 0644 .catalog-update/persona-pieces.json data/persona-pieces.json
-          git add -- data/persona-emotes.json data/persona-pieces.json catalog/README.md
+          git add -- data/persona-emotes.json data/persona-pieces.json catalog/
 
           if git diff --cached --quiet; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
