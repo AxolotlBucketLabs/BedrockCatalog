@@ -2,7 +2,7 @@
 
 An unofficial, queryable catalog of Minecraft Bedrock Marketplace metadata from PlayFab. This project is not affiliated with Mojang Studios or Microsoft.
 
-[![CI](https://github.com/AxolotlBucketLabs/BedrockCatalog/actions/workflows/validate.yml/badge.svg)](https://github.com/AxolotlBucketLabs/BedrockCatalog/actions/workflows/validate.yml) [![Discord](https://img.shields.io/discord/1568295845374206052?label=Discord&logo=discord&logoColor=white&color=5865F2)](https://discord.gg/Pk4FrNvHnM)
+[![CI](https://github.com/AxolotlBucketLabs/BedrockCatalog/actions/workflows/validate.yml/badge.svg)](https://github.com/AxolotlBucketLabs/BedrockCatalog/actions/workflows/validate.yml) [![License: MIT](https://img.shields.io/github/license/AxolotlBucketLabs/BedrockCatalog)](LICENSE) [![Discord](https://img.shields.io/discord/1568295845374206052?label=Discord&logo=discord&logoColor=white&color=5865F2)](https://discord.gg/Pk4FrNvHnM)
 
 ## Browse
 
@@ -11,6 +11,8 @@ An unofficial, queryable catalog of Minecraft Bedrock Marketplace metadata from 
 - [Persona piece data](data/persona-pieces.json).
 
 The exports contain confirmed `PersonaDurable` items only. Supported piece types are listed in [`config/confirmed-types.json`](config/confirmed-types.json), and the export format is defined in [`schemas/catalog.schema.json`](schemas/catalog.schema.json).
+
+The MIT License covers the collector, schemas, and project-authored documentation. It does not grant rights to Marketplace metadata in `data/` or third-party assets linked by the catalog. Those may remain subject to their respective owners' rights and terms.
 
 ## Update locally
 
