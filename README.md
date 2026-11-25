@@ -2,6 +2,8 @@
 
 An unofficial, queryable catalog of Minecraft Bedrock Marketplace metadata from PlayFab. This project is not affiliated with Mojang Studios or Microsoft.
 
+[![CI](https://github.com/AxolotlBucketLabs/BedrockCatalog/actions/workflows/validate.yml/badge.svg)](https://github.com/AxolotlBucketLabs/BedrockCatalog/actions/workflows/validate.yml) [![Discord](https://img.shields.io/discord/1568295845374206052?label=Discord&logo=discord&logoColor=white&color=5865F2)](https://discord.gg/Pk4FrNvHnM)
+
 ## Browse
 
 - [Visual catalog](catalog/README.md).
