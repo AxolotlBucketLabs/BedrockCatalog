@@ -30,6 +30,10 @@ python scripts/update_catalog.py
 
 After registering or signing in, run the collector in the same PowerShell window so it can use the session credentials.
 
+## Automated updates
+
+The GitHub Actions workflow runs daily at 02:17 UTC and can also be started manually. Configure repository secrets `PLAYFAB_EMAIL`, `PLAYFAB_PASSWORD`, and `CATALOG_APP_PRIVATE_KEY`, plus the repository variable `CATALOG_APP_CLIENT_ID`. The GitHub App has code write access only to this repository. Each run fetches and validates both datasets, then pushes a commit to `main` containing only the two catalog JSON files. It creates no commit when the data has not changed. A pushed commit starts `Validate repository`, and the update workflow waits for that check to finish.
+
 The default page size is 300. To change it or choose another output directory, pass `--page-size` or `--output-dir`:
 
 ```powershell

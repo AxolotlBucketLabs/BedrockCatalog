@@ -1,0 +1,100 @@
+name: Update catalog
+
+on:
+  schedule:
+    - cron: "17 2 * * *"
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: read
+
+concurrency:
+  group: catalog-update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    name: Update and validate catalog
+    if: github.repository == 'AxolotlBucketLabs/BedrockCatalog' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Create repository-scoped app token
+        id: app-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          client-id: ${{ vars.CATALOG_APP_CLIENT_ID }}
+          private-key: ${{ secrets.CATALOG_APP_PRIVATE_KEY }}
+          owner: AxolotlBucketLabs
+          repositories: BedrockCatalog
+          permission-contents: write
+
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          persist-credentials: true
+
+      - name: Set up Python
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.11"
+
+      - name: Fetch catalog data
+        env:
+          PLAYFAB_EMAIL: ${{ secrets.PLAYFAB_EMAIL }}
+          PLAYFAB_PASSWORD: ${{ secrets.PLAYFAB_PASSWORD }}
+        run: python scripts/update_catalog.py --output-dir .catalog-update
+
+      - name: Validate generated JSON
+        run: |
+          set -euo pipefail
+          for file in persona-emotes.json persona-pieces.json; do
+            test -s ".catalog-update/$file"
+            python -m json.tool ".catalog-update/$file" > /dev/null
+          done
+
+      - name: Commit and push changed catalog data
+        id: push
+        run: |
+          set -euo pipefail
+          install -m 0644 .catalog-update/persona-emotes.json data/persona-emotes.json
+          install -m 0644 .catalog-update/persona-pieces.json data/persona-pieces.json
+          git add -- data/persona-emotes.json data/persona-pieces.json
+
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "Catalog data is unchanged."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: refresh marketplace catalogs"
+          git push origin HEAD:main
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+          echo "commit-sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Wait for repository validation
+        if: steps.push.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          COMMIT_SHA: ${{ steps.push.outputs.commit-sha }}
+        run: |
+          set -euo pipefail
+          run_id=""
+          for attempt in $(seq 1 60); do
+            run_id="$(gh run list --workflow validate.yml --commit "$COMMIT_SHA" --event push --limit 20 --json databaseId --jq '.[0].databaseId // empty')"
+            if [ -n "$run_id" ]; then
+              break
+            fi
+            sleep 5
+          done
+
+          if [ -z "$run_id" ]; then
+            echo "Could not find the validation run for $COMMIT_SHA."
+            exit 1
+          fi
+
+          gh run watch "$run_id" --exit-status --interval 10
