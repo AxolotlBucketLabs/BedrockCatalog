@@ -1,0 +1,38 @@
+name: Validate repository
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate repository
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.11"
+      - name: Validate JSON files
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          paths = [
+              Path("config/confirmed-types.json"),
+              Path("schemas/catalog.schema.json"),
+              *Path("data").glob("*.json"),
+          ]
+          for path in paths:
+              json.loads(path.read_text(encoding="utf-8"))
+          PY
+      - name: Check Python syntax
+        run: python -m py_compile scripts/update_catalog.py
