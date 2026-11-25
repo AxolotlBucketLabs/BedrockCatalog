@@ -35,4 +35,8 @@ jobs:
               json.loads(path.read_text(encoding="utf-8"))
           PY
       - name: Check Python syntax
-        run: python -m py_compile scripts/update_catalog.py
+        run: python -m py_compile scripts/update_catalog.py scripts/render_catalog_readme.py
+      - name: Check visual catalog is current
+        run: |
+          python scripts/render_catalog_readme.py --data-dir data --output /tmp/catalog-readme.md
+          diff --unified=0 catalog/README.md /tmp/catalog-readme.md

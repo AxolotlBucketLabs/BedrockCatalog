@@ -13,6 +13,8 @@ The current export includes only `PersonaDurable` items represented in the avail
 
 The collector does not export other Marketplace categories until their response data and filters have been verified.
 
+Browse the [visual catalog](catalog/README.md) for emote thumbnails and persona piece examples. The JSON files remain the complete machine-readable exports.
+
 ## Requirements
 
 - Python 3.11 or newer.
