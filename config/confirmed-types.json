@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "datasets": [
+    {
+      "name": "persona_emotes",
+      "file": "persona-emotes.json",
+      "contentType": "PersonaDurable",
+      "pieceTypes": ["persona_emote"],
+      "filter": "(contentType eq 'PersonaDurable' and displayProperties/pieceType eq 'persona_emote')"
+    },
+    {
+      "name": "persona_pieces",
+      "file": "persona-pieces.json",
+      "contentType": "PersonaDurable",
+      "pieceTypes": [
+        "persona_arms",
+        "persona_back",
+        "persona_bottom",
+        "persona_capes",
+        "persona_dress",
+        "persona_eyes",
+        "persona_face_accessory",
+        "persona_facial_hair",
+        "persona_feet",
+        "persona_hair",
+        "persona_hand",
+        "persona_head",
+        "persona_high_pants",
+        "persona_hood",
+        "persona_legs",
+        "persona_mouth",
+        "persona_outerwear",
+        "persona_skin",
+        "persona_top"
+      ],
+      "filter": "(contentType eq 'PersonaDurable' and displayProperties/pieceType eq '{pieceType}')"
+    }
+  ]
+}

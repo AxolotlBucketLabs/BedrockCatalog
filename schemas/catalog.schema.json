@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Bedrock Catalog export",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "dataset",
+    "updatedAt",
+    "source",
+    "count",
+    "sourceItemCount",
+    "duplicatesRemoved",
+    "excludedUnconfirmedCount",
+    "items"
+  ],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "dataset": { "enum": ["persona_emotes", "persona_pieces"] },
+    "updatedAt": { "type": "string", "format": "date-time" },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["endpoint", "titleId", "scid"],
+      "properties": {
+        "endpoint": { "type": "string", "format": "uri" },
+        "titleId": { "type": "string", "minLength": 1 },
+        "scid": { "type": "string", "minLength": 1 }
+      }
+    },
+    "count": { "type": "integer", "minimum": 1 },
+    "sourceItemCount": { "type": "integer", "minimum": 1 },
+    "duplicatesRemoved": { "type": "integer", "minimum": 0 },
+    "excludedUnconfirmedCount": { "type": "integer", "minimum": 0 },
+    "items": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/item" }
+    }
+  },
+  "$defs": {
+    "item": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "dataset",
+        "title",
+        "description",
+        "contentType",
+        "pieceType",
+        "uuid",
+        "creatorName",
+        "offerId",
+        "price",
+        "rarity",
+        "keywords",
+        "localized",
+        "images",
+        "tags",
+        "creationDate",
+        "lastModifiedDate",
+        "displayProperties",
+        "itemReferences",
+        "alternateIds"
+      ],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "dataset": { "enum": ["persona_emote", "persona_piece"] },
+        "title": { "type": ["string", "null"] },
+        "description": { "type": ["string", "null"] },
+        "contentType": { "const": "PersonaDurable" },
+        "pieceType": { "type": "string", "minLength": 1 },
+        "uuid": { "type": ["string", "null"] },
+        "creatorName": { "type": ["string", "null"] },
+        "offerId": { "type": ["string", "null"] },
+        "price": {},
+        "rarity": { "type": ["string", "null"] },
+        "keywords": { "type": "array", "items": { "type": "string" } },
+        "localized": {
+          "type": "object",
+          "additionalProperties": true,
+          "required": ["title", "description", "keywords"],
+          "properties": {
+            "title": {},
+            "description": {},
+            "keywords": {}
+          }
+        },
+        "images": { "type": "array", "items": { "type": "object" } },
+        "tags": { "type": "array" },
+        "creationDate": { "type": ["string", "null"] },
+        "lastModifiedDate": { "type": ["string", "null"] },
+        "displayProperties": { "type": "object" },
+        "itemReferences": { "type": "array", "items": { "type": "object" } },
+        "alternateIds": { "type": "array", "items": { "type": "object" } }
+      }
+    }
+  }
+}
