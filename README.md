@@ -24,6 +24,6 @@ python scripts/update_catalog.py
 
 Set either `PLAYFAB_EMAIL` with `PLAYFAB_PASSWORD`, or `PLAYFAB_ENTITY_TOKEN`. Run `scripts/register_playfab_account.ps1` in PowerShell to register or sign in. Keep credentials out of the repository.
 
-GitHub Actions refreshes the catalog daily. It uses the `PLAYFAB_EMAIL`, `PLAYFAB_PASSWORD`, and `CATALOG_APP_PRIVATE_KEY` secrets and the `CATALOG_APP_CLIENT_ID` variable.
+GitHub Actions checks for catalog updates weekly on Monday at 09:17 Vietnam time. It commits only when the generated data changes. You can run the workflow manually from Actions. The workflow uses the `PLAYFAB_EMAIL`, `PLAYFAB_PASSWORD`, and `CATALOG_APP_PRIVATE_KEY` secrets and the `CATALOG_APP_CLIENT_ID` variable.
 
 The collector uses Minecraft's observed `/Catalog/Search` endpoint, which may change. It validates all pages before writing and leaves existing data untouched if a fetch fails.
